@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "388847692841",
+    "firebase_url": "https://calorius-3e881.firebaseio.com",
+    "project_id": "calorius-3e881",
+    "storage_bucket": "calorius-3e881.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388847692841:android:3970116f0e1ed2b1",
+        "android_client_info": {
+          "package_name": "com.example.calorius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "388847692841-5nh386gmiijuun75fchu4q48vjt5dq6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXZLjYccOeGZWJP7Dcm8oyjvrVISvLDmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "388847692841-5nh386gmiijuun75fchu4q48vjt5dq6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
