@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Autenticación buena.",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MainActivity.this,Main2Activity.class));
+                            startActivity(new Intent(LoginActivity.this,regCalActivity.class));
 
                         } else {
                             // If sign in fails, display a message to the user.
