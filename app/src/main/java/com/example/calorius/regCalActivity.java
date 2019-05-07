@@ -6,8 +6,24 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CalendarView;
+import android.widget.Spinner;
 
 public class regCalActivity extends AppCompatActivity {
+
+    private Spinner dropdownAl;
+    private Spinner dropdownCom;
+    private CalendarView calendar;
+    private String fechaSeleccionada;
+    private String correoLog = "a";
+    private Spinner dropdownCant;
+
+    //Estos son params que registraremos
+    private String nombreAlSel;
+    private String fechaAlSel;
+    private String tipoComidaSel;
+    private String codigoAlSel;
+    private String cantidadAlSel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,14 +32,13 @@ public class regCalActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        dropdownAl =(Spinner) findViewById(R.id.spinnerAlimentos);
+        dropdownCom = (Spinner) findViewById(R.id.spinnerComidaArray);
+        calendar = (CalendarView) findViewById(R.id.calendarView);
+        dropdownCant = (Spinner) findViewById(R.id.spinnerCant);
+
+
+
     }
 
 }
