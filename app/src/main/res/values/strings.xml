@@ -32,5 +32,6 @@
         recomendaciones de email."
     </string>
     <string name="title_activity_reg_cal">regCalActivity</string>
+    <string name="title_activity_logout">LogoutActivity</string>
 
 </resources>
