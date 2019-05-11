@@ -50,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
 
+    private String nombreMostrar;
+    private String urlFoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -195,6 +198,8 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(60);
+                            nombreMostrar = acct.getDisplayName();
+                            urlFoto = acct.getPhotoUrl().toString();
                             startActivity(new Intent(LoginActivity.this, regCalActivity.class));
                             finish();
                         } else {

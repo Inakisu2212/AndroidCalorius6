@@ -1,6 +1,7 @@
 package com.example.calorius;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -98,20 +99,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_login) {
             // Lo que pasa cuando pulsas en login
-            LoginFragment loginFragment = new LoginFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.mainLayout, loginFragment).commit();
-
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         } else if (id == R.id.nav_logout) { //Lo que pasa cuando pulsas en logout
-            LogoutFragment logoutFragment = new LogoutFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.mainLayout, logoutFragment).commit();
-
-        } else if (id == R.id.nav_registcalorias) { //....
-            regCalFragment regcalfragment = new regCalFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.mainLayout, regcalfragment).commit();
-
+            startActivity(new Intent(MainActivity.this, LogoutActivity.class));
+        } else if (id == R.id.nav_registcalorias) { //Lo que....
+            startActivity(new Intent(MainActivity.this, regCalActivity.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
