@@ -17,7 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button mEmailSignInButton;
     private FirebaseAuth mAuth;
 
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            LoginUsuario();
             showProgress(true);
         }
     }
@@ -109,13 +115,13 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(LoginActivity.this, "Autenticación buena.",
+                            Toast.makeText(LoginActivity.this, "Login email CORRECTO",
                                     Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this,regCalActivity.class));
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(LoginActivity.this, "Fallo en el login.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

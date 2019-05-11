@@ -73,6 +73,16 @@
                 android:text="LOGIN"
                 android:textStyle="bold" />
 
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnLoginGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/btnLogin"
+                android:layout_marginTop="278dp"
+                android:layout_marginEnd="-13dp">
+
+            </com.google.android.gms.common.SignInButton>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
