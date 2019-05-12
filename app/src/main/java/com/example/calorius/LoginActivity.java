@@ -158,6 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             long[] pattern = { 0,60,50,60,50,60};
                             vibrator.vibrate(pattern,-1);
+                            showProgress(false);
                         }
                     }
                 });
@@ -210,6 +211,7 @@ public class LoginActivity extends AppCompatActivity {
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             long[] pattern = { 0,60,50,60,50,60};
                             vibrator.vibrate(pattern,-1);
+                            showProgress(false);
                         }
 
                         // ...
