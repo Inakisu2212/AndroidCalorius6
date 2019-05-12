@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.Spinner;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class regCalActivity extends AppCompatActivity {
 
     private Spinner dropdownAl;
@@ -37,7 +40,11 @@ public class regCalActivity extends AppCompatActivity {
         calendar = (CalendarView) findViewById(R.id.calendarView);
         dropdownCant = (Spinner) findViewById(R.id.spinnerCant);
 
+        //Obtenemos base de datos con alimentos para poder mostrar en spinner
+        DatabaseReference dbAlimentos = FirebaseDatabase.getInstance()
+                .getReference().child("alimentos");
 
+        //dbAlimentos.
 
     }
 
