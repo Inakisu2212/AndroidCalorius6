@@ -6,7 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.Spinner;
 
@@ -15,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class regCalActivity extends AppCompatActivity {
 
@@ -51,7 +55,7 @@ public class regCalActivity extends AppCompatActivity {
         dbAlimentos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                showData(dataSnapshot);
             }
 
             @Override
@@ -59,7 +63,30 @@ public class regCalActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void showData(DataSnapshot dataSnapshot) {
+        for(DataSnapshot ds : dataSnapshot.getChildren()){
+            Alimento ali = new Alimento();
+            ali.setNombreAlimento(ds.child());
+
+            //Esto de aquí lo he copiado, no tengo nada claro cómo leches funciona la verdad
+            uInfo.setName(ds.child(userID).getValue(UserInformation.class).getName()); //set the name
+            uInfo.setEmail(ds.child(userID).getValue(UserInformation.class).getEmail()); //set the email
+            uInfo.setPhone_num(ds.child(userID).getValue(UserInformation.class).getPhone_num()); //set the phone_num
+
+            //display all the information
+            Log.d(TAG, "showData: name: " + uInfo.getName());
+            Log.d(TAG, "showData: email: " + uInfo.getEmail());
+            Log.d(TAG, "showData: phone_num: " + uInfo.getPhone_num());
+
+            ArrayList<String> array  = new ArrayList<>();
+            array.add(uInfo.getName());
+            array.add(uInfo.getEmail());
+            array.add(uInfo.getPhone_num());
+            ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,array);
+            mListView.setAdapter(adapter);
+        }
     }
 
 }
