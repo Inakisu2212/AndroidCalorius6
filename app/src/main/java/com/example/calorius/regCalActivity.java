@@ -36,6 +36,9 @@ public class regCalActivity extends AppCompatActivity {
     private String codigoAlSel;
     private String cantidadAlSel;
 
+    private ArrayList<String> alimentos  = new ArrayList<>();
+    private ArrayAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +46,8 @@ public class regCalActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dropdownAl =(Spinner) findViewById(R.id.spinnerAlimentos);
-        dropdownCom = (Spinner) findViewById(R.id.spinnerComidaArray);
+        dropdownAl =(Spinner) findViewById(R.id.spinnerAl);
+        dropdownCom = (Spinner) findViewById(R.id.spinnerTipo);
         calendar = (CalendarView) findViewById(R.id.calendarView);
         dropdownCant = (Spinner) findViewById(R.id.spinnerCant);
 
@@ -55,7 +58,13 @@ public class regCalActivity extends AppCompatActivity {
         dbAlimentos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                showData(dataSnapshot);
+                for (int i = 0; i<=5; i++){
+                    alimentos.add(dataSnapshot.child(""+i+"").child("nombre").getValue().toString());
+                }
+
+                adapter = new ArrayAdapter(regCalActivity.this,
+                        android.R.layout.simple_spinner_dropdown_item, alimentos);
+                dropdownAl.setAdapter(adapter);
             }
 
             @Override
@@ -63,30 +72,8 @@ public class regCalActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
-    private void showData(DataSnapshot dataSnapshot) {
-        for(DataSnapshot ds : dataSnapshot.getChildren()){
-            Alimento ali = new Alimento();
-            ali.setNombreAlimento(ds.child());
-
-            //Esto de aquí lo he copiado, no tengo nada claro cómo leches funciona la verdad
-            uInfo.setName(ds.child(userID).getValue(UserInformation.class).getName()); //set the name
-            uInfo.setEmail(ds.child(userID).getValue(UserInformation.class).getEmail()); //set the email
-            uInfo.setPhone_num(ds.child(userID).getValue(UserInformation.class).getPhone_num()); //set the phone_num
-
-            //display all the information
-            Log.d(TAG, "showData: name: " + uInfo.getName());
-            Log.d(TAG, "showData: email: " + uInfo.getEmail());
-            Log.d(TAG, "showData: phone_num: " + uInfo.getPhone_num());
-
-            ArrayList<String> array  = new ArrayList<>();
-            array.add(uInfo.getName());
-            array.add(uInfo.getEmail());
-            array.add(uInfo.getPhone_num());
-            ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,array);
-            mListView.setAdapter(adapter);
-        }
-    }
 
 }

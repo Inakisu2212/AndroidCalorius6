@@ -37,9 +37,13 @@
             <CalendarView
                 android:id="@+id/calendarView2"
                 android:layout_width="wrap_content"
-                android:layout_height="317dp"
+                android:layout_height="297dp"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="45dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="11dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,11 +58,15 @@
                     android:text="Tipo:" />
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spinnerTipo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,11 +81,15 @@
                     android:text="Alimento: " />
 
                 <Spinner
-                    android:id="@+id/spinner2"
+                    android:id="@+id/spinnerAl"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,9 +106,13 @@
                 <Spinner
                     android:id="@+id/spinnerCant"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
