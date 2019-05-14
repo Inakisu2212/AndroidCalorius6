@@ -58,7 +58,7 @@ public class regCalActivity extends AppCompatActivity {
         dbAlimentos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (int i = 0; i<=5; i++){
+                for (int i = 1; i<=5; i++){
                     //esto peta porque no consigue obtener nada, null
                     alimentos.add(dataSnapshot.child(""+i+"").child("nombre").getValue().toString());
                 }
