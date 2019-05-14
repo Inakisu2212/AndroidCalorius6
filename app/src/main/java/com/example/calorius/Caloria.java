@@ -5,6 +5,11 @@ public class Caloria {
 
     }
 
+    public Caloria(String fecha, String tipoComida, String tipoAlimento, String cantidad,
+                   String usuario){
+
+    }
+
     private String fecha;
     private String tipoComida;
     private String tipoAlimento;

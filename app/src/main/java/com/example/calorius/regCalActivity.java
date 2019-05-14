@@ -30,7 +30,7 @@ public class regCalActivity extends AppCompatActivity {
     private Spinner dropdownCom;
     private CalendarView calendar;
     private String fechaSeleccionada;
-    private String correoLog = "a";
+    private String DNILogueado = "0000";
     private EditText numCantidad;
     private Button btnReg;
 
@@ -40,6 +40,8 @@ public class regCalActivity extends AppCompatActivity {
     private String tipoComidaSel;
     private String codigoAlSel;
     private String cantidadAlSel;
+
+    private Caloria cal;
 
     private ArrayList<String> alimentos  = new ArrayList<>();
     private ArrayAdapter adapter;
@@ -57,6 +59,17 @@ public class regCalActivity extends AppCompatActivity {
         numCantidad = (EditText) findViewById(R.id.editNumcalorias);
 
         Button btnReg = (Button) findViewById(R.id.botonReg);
+
+        //Obtenemos fecha seleccionada del calendario
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month,
+                                            int dayOfMonth) {
+                month = month+1;
+                fechaSeleccionada = year+"-"+month+"-"+dayOfMonth;
+            }
+        });
 
         //Tipos de comida para meter en spinnerTipo
         String[] spinnerComAr = new String[3];
@@ -87,6 +100,15 @@ public class regCalActivity extends AppCompatActivity {
 
                 //Obtener número de alimentos seleccionado
                 String numAlimentos = numCantidad.getText().toString();
+
+                DatabaseReference calRef =  FirebaseDatabase.getInstance()
+                        .getReference().child("calorias");
+                Caloria cal = new Caloria();
+
+                calRef.setValue(new Caloria(fechaSeleccionada,tipoComidaSel,
+                        codigoAlSel, cantidadAlSel,DNILogueado));
+
+
 
 
             }
