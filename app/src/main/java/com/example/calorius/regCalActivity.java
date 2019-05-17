@@ -39,7 +39,7 @@ public class regCalActivity extends AppCompatActivity {
     private String fechaAlSel;
     private String tipoComidaSel;
     private String codigoAlSel;
-    private String cantidadAlSel;
+   // private String cantidadAlSel;
 
     private Caloria cal;
 
@@ -56,7 +56,7 @@ public class regCalActivity extends AppCompatActivity {
         dropdownAl =(Spinner) findViewById(R.id.spinnerAl);
         dropdownCom = (Spinner) findViewById(R.id.spinnerTipo);
         calendar = (CalendarView) findViewById(R.id.calendarView);
-        numCantidad = (EditText) findViewById(R.id.editNumcalorias);
+        numCantidad = (EditText) findViewById(R.id.editNumcantidad);
 
         Button btnReg = (Button) findViewById(R.id.botonReg);
 
@@ -83,7 +83,6 @@ public class regCalActivity extends AppCompatActivity {
 
         btnReg.setOnClickListener(new View.OnClickListener(){
             @Override
-            @TargetApi(Build.VERSION_CODES.N)
             public void onClick(View v){
                 //Obtenemos el tipo de comida que se ha seleccionado
                 if(dropdownCom.getSelectedItemPosition()==0){
@@ -101,14 +100,23 @@ public class regCalActivity extends AppCompatActivity {
                 //Obtener número de alimentos seleccionado
                 String numAlimentos = numCantidad.getText().toString();
 
+//                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                DatabaseReference ref = database.getReference("server/saving-data/fireblog");
+
                 DatabaseReference calRef =  FirebaseDatabase.getInstance()
                         .getReference().child("calorias");
                 Caloria cal = new Caloria();
-
-                calRef.setValue(new Caloria(fechaSeleccionada,tipoComidaSel,
-                        codigoAlSel, cantidadAlSel,DNILogueado));
-
-
+                cal.setCantidad(numAlimentos);
+                cal.setFecha(fechaSeleccionada);
+                cal.setTipoAlimento(tipoComidaSel);
+                cal.setUsuario(DNILogueado);
+//child(blablabla).setValue()
+                //tenía calRef.push().setvalue()
+                calRef.child(fechaSeleccionada+tipoComidaSel+codigoAlSel+DNILogueado)
+                        .setValue(cal);
+       //         calRef.push().setValue(cal);
+//                calRef.setValue(new Caloria(fechaSeleccionada,tipoComidaSel,
+//                        codigoAlSel, numAlimentos, DNILogueado));
 
 
             }

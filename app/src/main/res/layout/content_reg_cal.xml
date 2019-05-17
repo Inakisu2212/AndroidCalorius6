@@ -35,7 +35,7 @@
                 tools:layout_editor_absoluteY="16dp" />
 
             <CalendarView
-                android:id="@+id/calendarView2"
+                android:id="@+id/calendarView"
                 android:layout_width="wrap_content"
                 android:layout_height="297dp"
                 tools:layout_editor_absoluteX="16dp"
@@ -104,7 +104,7 @@
                     android:text="Cantidad:" />
 
                 <EditText
-                    android:id="@+id/editNumcalorias"
+                    android:id="@+id/editNumcantidad"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
