@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -29,13 +29,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity
             android:name=".regCalActivity"
             android:label="@string/title_activity_reg_cal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LogoutActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_act_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LogoutActivity" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

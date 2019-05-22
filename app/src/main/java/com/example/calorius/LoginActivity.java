@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(60);
-                            startActivity(new Intent(LoginActivity.this,regCalActivity.class));
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                             vibrator.vibrate(60);
                             nombreMostrar = acct.getDisplayName();
                             urlFoto = acct.getPhotoUrl().toString();
-                            startActivity(new Intent(LoginActivity.this, regCalActivity.class));
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.

@@ -101,10 +101,13 @@ public class MainActivity extends AppCompatActivity
             // Lo que pasa cuando pulsas en login
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         } else if (id == R.id.nav_logout) { //Lo que pasa cuando pulsas en logout
-            startActivity(new Intent(MainActivity.this, LogoutActivity.class));
+            LogoutFragment logoutFragment = new LogoutFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.mainLayout, logoutFragment).commit();
         } else if (id == R.id.nav_registcalorias) { //Lo que....
-            startActivity(new Intent(MainActivity.this, regCalActivity.class));
-        } else if (id == R.id.nav_share) {
+            regCalFragment regcalfragment = new regCalFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.mainLayout, regcalfragment).commit();        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

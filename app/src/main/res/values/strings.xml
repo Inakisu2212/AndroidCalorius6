@@ -31,7 +31,9 @@
     <string name="permission_rationale">"Se necesitan permisos de contactos para
         recomendaciones de email."
     </string>
-    <string name="title_activity_reg_cal">regCalActivity</string>
-    <string name="title_activity_logout">LogoutActivity</string>
+    <string name="title_activity_reg_cal">Registro de calorías</string>
+    <string name="title_activity_logout">Logout</string>
+    <string name="title_act_main"> Calorius</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

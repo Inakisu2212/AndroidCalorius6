@@ -1,8 +1,10 @@
 package com.example.calorius;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +36,8 @@ public class regCalActivity extends AppCompatActivity {
     private String DNILogueado = "0000";
     private EditText numCantidad;
     private Button btnReg;
+
+    private static final String LOGTAG = "Error reg. calorias: ";
 
     //Estos son params que registraremos
     private String nombreAlSel;
@@ -100,9 +105,7 @@ public class regCalActivity extends AppCompatActivity {
                 //Obtener número de alimentos seleccionado
                 String numAlimentos = numCantidad.getText().toString();
 
-//                final FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                DatabaseReference ref = database.getReference("server/saving-data/fireblog");
-
+                //Introducimos el registro de calorias
                 DatabaseReference calRef =  FirebaseDatabase.getInstance()
                         .getReference().child("calorias");
                 Caloria cal = new Caloria();
@@ -110,14 +113,27 @@ public class regCalActivity extends AppCompatActivity {
                 cal.setFecha(fechaSeleccionada);
                 cal.setTipoAlimento(tipoComidaSel);
                 cal.setUsuario(DNILogueado);
-//child(blablabla).setValue()
-                //tenía calRef.push().setvalue()
-                calRef.child(fechaSeleccionada+tipoComidaSel+codigoAlSel+DNILogueado)
-                        .setValue(cal);
-       //         calRef.push().setValue(cal);
-//                calRef.setValue(new Caloria(fechaSeleccionada,tipoComidaSel,
-//                        codigoAlSel, numAlimentos, DNILogueado));
 
+                calRef.child(fechaSeleccionada+tipoComidaSel+codigoAlSel+DNILogueado)
+                        .setValue(cal, new DatabaseReference.CompletionListener(){
+                    public void onComplete(DatabaseError error, DatabaseReference ref) {
+                        if(error == null) {
+                            Log.i(LOGTAG, "Operación OK");
+                            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            vibrator.vibrate(60);
+                            Toast.makeText(regCalActivity.this, "Registro realizado", Toast.LENGTH_SHORT).show();
+                            System.out.println("---> Reg Cal OK: Verificar en BD!");
+                        }else {
+                            Log.e(LOGTAG, "Error: " + error.getMessage());
+
+                            Vibrator vibrator2 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            Toast.makeText(regCalActivity.this, "Registro fallido", Toast.LENGTH_SHORT).show();
+                            long[] pattern = {0, 60, 50, 60, 50, 60};
+                            vibrator2.vibrate(pattern, -1);
+                            System.out.println("----->Fallo de introducirCalorias: "); //info del error
+                        }
+                    }
+                });
 
             }
         });
