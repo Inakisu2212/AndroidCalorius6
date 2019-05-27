@@ -21,25 +21,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textFecha"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fecha:"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="16dp" />
+                android:orientation="horizontal">
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="wrap_content"
-                android:layout_height="297dp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="45dp" />
+                <TextView
+                    android:id="@+id/textFecha"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha:"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="16dp" />
+
+            <EditText
+                android:id="@+id/etPlannedDate"
+                android:hint="1970/05/30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:focusable="false"
+                android:clickable="true"
+                android:maxLines="1" />
+            </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
@@ -129,7 +137,7 @@
                     android:layout_weight="1"
                     android:text="Registrar" />
             </LinearLayout>
-        </LinearLayout>
+        </TableLayout>
     </ScrollView>
 
 </RelativeLayout>

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.N)
@@ -38,12 +40,16 @@ public class regCalFragment extends Fragment {
     private Spinner dropdownAl;
     private Spinner dropdownCom;
     private CalendarView calendar;
+    private EditText etFecha;
     private String fechaSeleccionada;
     private String DNILogueado = "0000";
     private EditText numCantidad;
     private Button btnReg;
 
     private static final String LOGTAG = "Error reg. calorias: ";
+    private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_CANTIDAD = "DialogCantidad";
+    private static final int REQUEST_DATE = 0,REQUEST_CANTIDAD = 0;
 
     //Estos son params que registraremos
     private String nombreAlSel;
@@ -79,6 +85,17 @@ public class regCalFragment extends Fragment {
         numCantidad = (EditText) v.findViewById(R.id.editNumcantidad);
 
         Button btnReg = (Button) v.findViewById(R.id.botonReg);
+
+        etFecha = (EditText) v.findViewById(R.id.etPlannedDate);
+        etFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(new Date());
+                dialog.setTargetFragment(regCalFragment.this, REQUEST_DATE);
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
 
         //Obtenemos fecha seleccionada del calendario
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -189,5 +206,16 @@ public class regCalFragment extends Fragment {
             }
         });
         return v;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode > 1) {
+            return;
+        }
+        if (resultCode == 0) {
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            String miFecha = (String) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE2);
+            etFecha.setText(miFecha);
+        }
     }
 }
