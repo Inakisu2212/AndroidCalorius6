@@ -109,6 +109,11 @@ public class regCalFragment extends Fragment {
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Reseteamos valores
+                fechaSeleccionada = "";
+                tipoComidaSel = "";
+                codigoAlSel = "";
+
                 //Obtenemos el tipo de comida que se ha seleccionado
                 if (dropdownCom.getSelectedItemPosition() == 0) {
                     tipoComidaSel = "D";
@@ -134,34 +139,44 @@ public class regCalFragment extends Fragment {
                 cal.setTipoAlimento(tipoComidaSel);
                 cal.setUsuario(DNILogueado);
 
-                calRef.child(fechaSeleccionada + tipoComidaSel + codigoAlSel + DNILogueado)
-                        .setValue(cal, new DatabaseReference.CompletionListener() {
-                            public void onComplete(DatabaseError error, DatabaseReference ref) {
-                                if (error == null) {
-                                    Log.i(LOGTAG, "Operación OK");
-                                    Vibrator vibrator = (Vibrator) getActivity().
-                                            getSystemService(Context.VIBRATOR_SERVICE);
-                                    vibrator.vibrate(60);
-                                    Toast.makeText(getActivity(), "Registro realizado",
-                                            Toast.LENGTH_SHORT).show();
-                                    System.out.println("---> Reg Cal OK: Verificar en BD!");
-                                } else {
-                                    Log.e(LOGTAG, "Error: " + error.getMessage());
-                                    Vibrator vibrator2 = (Vibrator) getActivity().
-                                            getSystemService(Context.VIBRATOR_SERVICE);
-                                    Toast.makeText(getActivity(), "Registro fallido",
-                                            Toast.LENGTH_SHORT).show();
-                                    long[] pattern = {0, 60, 50, 60, 50, 60};
-                                    vibrator2.vibrate(pattern, -1);
-                                    System.out.println("----->Fallo de introducirCalorias: "); //info del error
-                                }
-                            }
-                        });
+                //Obtenemos fecha seleccionada
+                fechaSeleccionada = etFecha.getText().toString();
 
+                if(fechaSeleccionada.equals("")||tipoComidaSel.equals("")||codigoAlSel.equals("")
+                        ||DNILogueado.equals("")|| codigoAlSel.equals("0")){
+                    Vibrator vibrator2 = (Vibrator) getActivity().
+                            getSystemService(Context.VIBRATOR_SERVICE);
+                    Toast.makeText(getActivity(), "Debe completar todos los campos",
+                            Toast.LENGTH_SHORT).show();
+                    long[] pattern = {0, 60, 50, 60, 50, 60};
+                    vibrator2.vibrate(pattern, -1);
+                }else {
+                    calRef.child(fechaSeleccionada + tipoComidaSel + codigoAlSel + DNILogueado)
+                            .setValue(cal, new DatabaseReference.CompletionListener() {
+                                public void onComplete(DatabaseError error, DatabaseReference ref) {
+                                    if (error == null) {
+                                        Log.i(LOGTAG, "Operación OK");
+                                        Vibrator vibrator = (Vibrator) getActivity().
+                                                getSystemService(Context.VIBRATOR_SERVICE);
+                                        vibrator.vibrate(60);
+                                        Toast.makeText(getActivity(), "Registro realizado",
+                                                Toast.LENGTH_SHORT).show();
+                                        System.out.println("---> Reg Cal OK: Verificar en BD!");
+                                    } else {
+                                        Log.e(LOGTAG, "Error: " + error.getMessage());
+                                        Vibrator vibrator2 = (Vibrator) getActivity().
+                                                getSystemService(Context.VIBRATOR_SERVICE);
+                                        Toast.makeText(getActivity(), "Registro fallido",
+                                                Toast.LENGTH_SHORT).show();
+                                        long[] pattern = {0, 60, 50, 60, 50, 60};
+                                        vibrator2.vibrate(pattern, -1);
+                                        System.out.println("----->Fallo de introducirCalorias: "); //info del error
+                                    }
+                                }
+                            });
+                }
             }
         });
-
-
 
         //Obtenemos base de datos con alimentos para poder mostrar en spinner
         DatabaseReference dbAlimentos = FirebaseDatabase.getInstance()
