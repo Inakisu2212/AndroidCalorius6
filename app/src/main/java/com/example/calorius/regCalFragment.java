@@ -81,7 +81,6 @@ public class regCalFragment extends Fragment {
 
         dropdownAl = (Spinner) v.findViewById(R.id.spinnerAl);
         dropdownCom = (Spinner) v.findViewById(R.id.spinnerTipo);
-        calendar = (CalendarView) v.findViewById(R.id.calendarView);
         numCantidad = (EditText) v.findViewById(R.id.editNumcantidad);
 
         Button btnReg = (Button) v.findViewById(R.id.botonReg);
@@ -94,17 +93,6 @@ public class regCalFragment extends Fragment {
                 DatePickerFragment dialog = DatePickerFragment.newInstance(new Date());
                 dialog.setTargetFragment(regCalFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
-            }
-        });
-
-        //Obtenemos fecha seleccionada del calendario
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                month = month + 1;
-                fechaSeleccionada = year + "-" + month + "-" + dayOfMonth;
             }
         });
 
@@ -173,16 +161,7 @@ public class regCalFragment extends Fragment {
             }
         });
 
-        //Obtener la fecha seleccionada del calendario
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-                month = month + 1;
-                fechaSeleccionada = year + "-" + month + "-" + dayOfMonth;
-            }
-        });
 
         //Obtenemos base de datos con alimentos para poder mostrar en spinner
         DatabaseReference dbAlimentos = FirebaseDatabase.getInstance()

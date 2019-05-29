@@ -60,7 +60,6 @@ public class regCalActivity extends AppCompatActivity {
 
         dropdownAl =(Spinner) findViewById(R.id.spinnerAl);
         dropdownCom = (Spinner) findViewById(R.id.spinnerTipo);
-        calendar = (CalendarView) findViewById(R.id.calendarView);
         numCantidad = (EditText) findViewById(R.id.editNumcantidad);
 
         Button btnReg = (Button) findViewById(R.id.botonReg);
