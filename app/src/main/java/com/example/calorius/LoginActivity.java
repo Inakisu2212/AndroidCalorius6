@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -137,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void LoginUsuario() {
         String email = mEmail.getText().toString();
+        final String emailShared = mEmail.getText().toString();
         String password = mPassword.getText().toString();
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -147,9 +149,18 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Login email CORRECTO",
                                     Toast.LENGTH_SHORT).show();
+
+                            SharedPreferences sharedData = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedData.edit();
+                            editor.putString("email", emailShared);
+                            editor.commit();
+
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(60);
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            MainActivity mainActivity = new MainActivity();
+                            mainActivity.actualizarHeader();
+
 
                         } else {
                             // If sign in fails, display a message to the user.

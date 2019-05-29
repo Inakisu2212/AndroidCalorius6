@@ -78,11 +78,13 @@ public class MainActivity extends AppCompatActivity
 
     public void actualizarHeader(){
 
-//        SharedPreferences spf = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        View headerView = navigationView.getHeaderView(0);
-//        TextView navUsername = (TextView) headerView.findViewById(R.id.textView);
-//        navUsername.setText("Hola " + spf.getString("Email",""));
+       SharedPreferences spf = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+       NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+       View headerView = navigationView.getHeaderView(0);
+       TextView navUsername = (TextView) headerView.findViewById(R.id.textView);
+       navUsername.setText("Hola " + spf.getString("email",""));
+
+
 
         dbUsuarios = FirebaseDatabase.getInstance().getReference()
                 .child("usuario");
