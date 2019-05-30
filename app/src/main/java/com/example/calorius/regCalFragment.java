@@ -92,6 +92,9 @@ public class regCalFragment extends Fragment {
         });
 
         //Actualizamos emailLogin con el correo del usuario logueado
+        SharedPreferences spf = getActivity()
+                .getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+        emailLogin = spf.getString("email", "");
 
 
         //Obtenemos el DNI del usuario logueado

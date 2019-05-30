@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_registcalorias) { //Lo que....
             regCalFragment regcalfragment = new regCalFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.mainLayout, regcalfragment).commit();        } else if (id == R.id.nav_share) {
+            manager.beginTransaction().replace(R.id.mainLayout, regcalfragment).commit();
+        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
