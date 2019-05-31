@@ -27,15 +27,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.EventListener;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DatabaseReference dbUsuarios;
-    private ValueEventListener eventListener;
-    String usu="",email,dni,nombre,fotoURL;
-    private TextView usuarioText;
-    private ImageView foto;
-    private SharedPreferences sharedData;
+    private DatabaseReference db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,52 +59,35 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //************* OBTENER SHARED EMAIL USUARIO LOGUEADO *************
-        sharedData = getSharedPreferences("USUARIO", Context.MODE_PRIVATE);
-        email = sharedData.getString(("USUARIO"), "");
-
-        //************* PERSONALIZAR MENÚ USUARIO *************
-        View headerView = navigationView.getHeaderView(0);
-        usuarioText = headerView.findViewById(R.id.textView);
-        foto = headerView.findViewById(R.id.imageView);
-
-        //*********** OBTENER DATOS DEL USUARIO **************
         actualizarHeader();
-
     }
 
     public void actualizarHeader(){
 
-       SharedPreferences spf = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
-       NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-       View headerView = navigationView.getHeaderView(0);
+        //EMAIL
+       final SharedPreferences spf = this.getApplicationContext().getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+       final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+       final View headerView = navigationView.getHeaderView(0);
        TextView navUsername = (TextView) headerView.findViewById(R.id.textView);
        navUsername.setText("Hola " + spf.getString("email",""));
 
+       //FOTO
+       db = FirebaseDatabase.getInstance().getReference().child("usuarios");;
 
-
-        dbUsuarios = FirebaseDatabase.getInstance().getReference()
-                .child("usuario");
-
-        eventListener = new ValueEventListener() {
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
+                ImageView foto = headerView.findViewById(R.id.imageView);
                 for(DataSnapshot iterador: dataSnapshot.getChildren()) {
 
-                    if(iterador.child("email").getValue().equals(email)){
-                        //************ OBTENER DNI **************
-                        dni = iterador.child("dni").getValue().toString();
-                        //*********** OBTENER FOTO USUARIO **************
-                        fotoURL = iterador.child("foto").getValue().toString();
+                    if(iterador.child("email").getValue().equals("isma@isma.com")){
+
+                        String fotoURL = iterador.child("urlFoto").getValue().toString();
                         Glide.with(MainActivity.this)
                                 .load(fotoURL)
                                 .into(foto);
-                        SharedPreferences.Editor editor = sharedData.edit();
-                        editor.putString("DNI", dni);
-                        editor.commit();
-                        usuarioText.setText(iterador.child("email").getValue().toString());
                     }
                 }
             }
@@ -116,10 +96,7 @@ public class MainActivity extends AppCompatActivity
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("ERROR", "Error!", databaseError.toException());
             }
-        };
-
-        dbUsuarios.addValueEventListener(eventListener);
-
+        });
 
     }
 

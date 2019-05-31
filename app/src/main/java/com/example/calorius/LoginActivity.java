@@ -150,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login email CORRECTO",
                                     Toast.LENGTH_SHORT).show();
 
-                            SharedPreferences sharedData = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+                            SharedPreferences sharedData = getApplicationContext().getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedData.edit();
                             editor.putString("email", emailShared);
                             editor.commit();
@@ -158,8 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(60);
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                            MainActivity mainActivity = new MainActivity();
-                            mainActivity.actualizarHeader();
+//
 
 
                         } else {
