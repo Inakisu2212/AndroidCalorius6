@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,30 +40,24 @@ public class regCalFragment extends Fragment {
 
     private Spinner dropdownAl;
     private Spinner dropdownCom;
-    private CalendarView calendar;
     private EditText etFecha;
-    private String fechaSeleccionada;
-    private String DNILogueado = "0000";
-    private EditText numCantidad;
-    private Button btnReg;
+    private String emailLogin;
 
     private static final String LOGTAG = "Error reg. calorias: ";
     private static final String DIALOG_DATE = "DialogDate";
-    private static final String DIALOG_CANTIDAD = "DialogCantidad";
-    private static final int REQUEST_DATE = 0,REQUEST_CANTIDAD = 0;
+    private static final int REQUEST_DATE = 0;
 
     //Estos son params que registraremos
-    private String nombreAlSel;
-    private String fechaAlSel;
+    private String fechaSeleccionada;
     private String tipoComidaSel;
     private String codigoAlSel;
-    // private String cantidadAlSel;
+    private EditText numCantidad;
+    private String DNILogueado = "0000";
 
     private Caloria cal;
 
     private ArrayList<String> alimentos  = new ArrayList<>();
     private ArrayAdapter adapter;
-
 
     public regCalFragment() {
         // Required empty public constructor
@@ -95,6 +90,15 @@ public class regCalFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
+
+        //Actualizamos emailLogin con el correo del usuario logueado
+        SharedPreferences spf = getActivity()
+                .getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+        emailLogin = spf.getString("email", "");
+
+
+        //Obtenemos el DNI del usuario logueado
+        obtenerDNI();
 
         //Tipos de comida para meter en spinnerTipo
         String[] spinnerComAr = new String[3];
@@ -200,6 +204,27 @@ public class regCalFragment extends Fragment {
             }
         });
         return v;
+    }
+    //Obtenemos el DNI del usuario que se ha logueado
+    public void obtenerDNI(){
+        DatabaseReference dbUsuarios = FirebaseDatabase.getInstance()
+                .getReference().child("usuarios");
+        dbUsuarios.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot iterator: dataSnapshot.getChildren()) {
+
+                    if(iterator.child("email").getValue().equals(emailLogin)){
+                        DNILogueado = iterator.child("dni").getValue().toString();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
