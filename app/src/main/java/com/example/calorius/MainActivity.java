@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
                 ImageView foto = headerView.findViewById(R.id.imageView);
                 for(DataSnapshot iterador: dataSnapshot.getChildren()) {
 
-                    if(iterador.child("email").getValue().equals("isma@isma.com")){
+                    if(iterador.child("email").getValue().equals(spf.getString("email",""))){
 
                         String fotoURL = iterador.child("urlFoto").getValue().toString();
                         Glide.with(MainActivity.this)
